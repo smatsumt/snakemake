@@ -110,6 +110,9 @@ class RemoteObject(AbstractRemoteObject):
             config=self.kwargs.get("Config", None),
         )
 
+    def remove(self):
+        self._s3c.delete_from_bucket(self.s3_bucket, self.s3_key)
+
     @property
     def list(self):
         return self._s3c.list_keys(self.s3_bucket)
@@ -308,7 +311,6 @@ class S3Helper(object):
 
         k = self.s3.Object(bucket_name, key)
         ret = k.delete()
-        return ret.name
 
     def exists_in_bucket(self, bucket_name, key):
         """ Returns whether the key exists in the bucket
