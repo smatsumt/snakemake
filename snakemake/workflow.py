@@ -1330,6 +1330,10 @@ class RuleInfo:
         self.wrapper = None
         self.cwl = None
 
+    @property
+    def name(self):
+        return self.func.__name__[7:]  # remove '__rule_' prefix, added by start() in parser.py
+
 
 class Subworkflow:
     def __init__(self, workflow, name, snakefile, workdir, configfile):
